@@ -1,0 +1,41 @@
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.form-div {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+}
+.form-div form div{
+    margin-bottom: 15px;
+}
+.form-div label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+
+    
+}
+.form-div input{
+    font-size: 14px;
+    width: 90%;
+    padding: 8px;
+
+}
+.form-div button{
+    width: 90%;
+    background-color: rgb(18, 63, 167);
+    color:#fff ;
+
+}
+.form-div button:hover{
+    background-color: rgb(210, 128, 27);
+
+}
+.error_msg{
+    color: red;
+
+}

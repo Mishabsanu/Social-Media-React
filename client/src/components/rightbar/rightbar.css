@@ -1,0 +1,59 @@
+/* rightbar.css */
+.sidebar {
+  width: 350px;
+  background-color: #f0f0f0;
+  box-sizing: border-box;
+}
+
+.sidebarWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarList {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebarListItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(217, 212, 212, 0.1); 
+
+  /* Make the card sticky */
+  position: sticky;
+  top: 20px; 
+}
+
+.postImgs {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+h3 {
+  margin: 0;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
