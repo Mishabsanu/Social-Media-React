@@ -49,7 +49,14 @@ const PostAdd = () => {
       dispatch(setPosts({ posts: response.data.populatedPost }));
       navigate("/");
     } catch (error) {
-      setError("Failed to create post.");
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 

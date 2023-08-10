@@ -34,7 +34,7 @@ const Login = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };

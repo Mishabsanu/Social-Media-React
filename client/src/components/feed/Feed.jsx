@@ -19,6 +19,7 @@ export default function Feed() {
   const userId = curntUser?.user?._id;
   const [showComments, setShowComments] = useState(false);
   const [Comment, setComment] = useState("");
+  console.log(posts,'postspostspostsposts');
   useEffect(() => {
     getAllPost();
   }, []);
@@ -35,11 +36,10 @@ export default function Feed() {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };
-
   const handleDelete = (postId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -61,7 +61,7 @@ export default function Feed() {
           })
           .catch((error) => {
             if (error.response) {
-              setError(error.response.data.message);
+              setError(error.response.data.error);
             } else {
               setError("Network error. Please try again later.");
             }
@@ -82,7 +82,6 @@ export default function Feed() {
   };
 
   const handleLike = (postId) => {
-    // location.reload(); /// while updation problem
     patchLike(postId);
   };
 
@@ -91,22 +90,33 @@ export default function Feed() {
     setComment("");
     setPostId(postId);
   };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       text: Comment,
     };
-
     try {
       const response = await axios.patch(
         `http://localhost:2000/api/user/commentPost/${postIds}/${userId}`,
         data
       );
-      dispatch(setPosts({ posts: response.data.populatedPost }));
+      setPost(response.data.populatedPost);
+      dispatch(setPosts({ posts: response.data.populatedPost}));
     } catch (error) {
-      setError("Failed to create post.");
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
+
+
 
   const handleDeleteComment = (postId, commentId) => {
     Swal.fire({
@@ -131,7 +141,7 @@ export default function Feed() {
           })
           .catch((error) => {
             if (error.response) {
-              setError(error.response.data.message);
+              setError(error.response.data.error);
             } else {
               setError("Network error. Please try again later.");
             }

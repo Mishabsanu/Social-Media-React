@@ -25,7 +25,7 @@ const PostsAdd = async (req, res) => {
     console.error(error);
     res
       .status(error.code || 500)
-      .json({ error: error.message || "Oops, something went wrong" });
+      .json({ error: error.error || "Oops, something went wrong" });
   }
 };
 
@@ -155,19 +155,11 @@ const commentPost = async (req, res) => {
     });
     const savedPost = await post.save();
 
-    const populatedPost = await Post.findById(savedPost._id)
-      .populate("author", "userName profilePic")
-      .populate({
-        path: "comments",
-        populate: { path: "author", select: "userName profilePic" },
-        options: { sort: { createdAt: -1 } },
-      })
-      .exec();
-
-
-
+    const populatedPost = await Post.find().populate("author", "userName profilePic").sort({ createdAt: -1 })
+      console.log(populatedPost,'populatedPost');
     res.status(201).json({populatedPost});
   } catch (err) {
+
     res.status(404).json({ message: err.message });
   }
 };

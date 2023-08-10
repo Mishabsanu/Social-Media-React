@@ -40,7 +40,7 @@ const Rightbar = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };
@@ -65,7 +65,14 @@ const Rightbar = () => {
       );
       dispatch(setFollowings({ followings: response.data }));
     } catch (error) {
-      console.log("getAllUsers error: Follwings" + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
@@ -77,7 +84,14 @@ const Rightbar = () => {
 
       dispatch(setFollowers({ followers: response.data }));
     } catch (error) {
-      console.log("getAllUsers error: Follwers" + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
   useEffect(() => {
@@ -94,10 +108,19 @@ const Rightbar = () => {
 
       dispatch(setNotFollowingUsers({ notFollowingUsers: response.data }));
     } catch (error) {
-      console.log("getAllUsers error notfollwing: " + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
   const handleUnfollow = async (userId) => {
+
+    try {
     const response = await axios.put(
       `http://localhost:2000/api/user/unfollow/${userId}`,
       { currentUserId }
@@ -113,6 +136,16 @@ const Rightbar = () => {
     dispatch(setFollowings({ Followings: updatedFollowings }));
 
     setUnfollowClicked(true);
+  } catch (error) {
+    console.log(error);
+    if (
+      error.response &&
+      error.response.status >= 400 &&
+      error.response.status <= 500
+    ) {
+      setError(error.response.data.error);
+    }
+  }
   };
 
   return (

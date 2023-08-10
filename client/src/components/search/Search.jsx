@@ -44,7 +44,7 @@ const Search = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };
@@ -60,7 +60,14 @@ const Search = () => {
         )
       );
     } catch (error) {
-      console.error("Error liking post:", error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
@@ -77,7 +84,7 @@ const Search = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };

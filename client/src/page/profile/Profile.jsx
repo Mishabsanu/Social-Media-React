@@ -19,6 +19,7 @@ const Profile = () => {
   const [unfollowClicked, setUnfollowClicked] = useState(false);
   const [Followers, setFollowers] = useState([]);
   const [count, setCount] = useState("");
+  const [error, setError] = useState("");
   console.log(unfollowClicked);
   console.log(followClicked);
 
@@ -33,7 +34,14 @@ const Profile = () => {
       dispatch(setNotFollowingUsers({ notFollowingUsers: response.data }));
       setNotFollowingUsers(response.data);
     } catch (error) {
-      console.log("getAllUsers error notfollwing: " + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
@@ -42,16 +50,25 @@ const Profile = () => {
       const response = await axios(
         `http://localhost:2000/api/user/getFollowings/${currentUserId}`
       );
-     
-
       dispatch(setFollowings({ followings: response.data }));
       setporfFollowings(response.data);
     } catch (error) {
-      console.log("getAllUsers error: Follwings" + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
   const handleFollow = async (userId) => {
+
+    try {
+      
+
     const response = await axios.put(
       `http://localhost:2000/api/user/follow/${userId}`,
       { currentUserId: currentUserId }
@@ -64,6 +81,16 @@ const Profile = () => {
     const updatedFollowings = [...porfFollowings.Followings, response.data];
     setporfFollowings(updatedFollowings);
     setFollowClicked(true);
+  } catch (error) {
+    console.log(error);
+    if (
+      error.response &&
+      error.response.status >= 400 &&
+      error.response.status <= 500
+    ) {
+      setError(error.response.data.error);
+    }
+  }
   };
 
   const handleUnfollow = async (userId) => {
@@ -93,8 +120,15 @@ const Profile = () => {
       setProfileUser(data.data);
       setFollowers(data.data.user);
       setporfFollowings(data.followings);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
   useEffect(() => {
@@ -114,7 +148,14 @@ const Profile = () => {
       );
       setCount(response.data.postCount);
     } catch (error) {
-      console.log("getAllUsers error: " + error);
+      console.log(error);
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
@@ -172,6 +213,7 @@ const Profile = () => {
           <h4>{profileUser?.user?.followers?.length} Followers</h4>
           <h4>{profileUser?.user?.followings?.length} Following</h4>
         </div>
+        {error && <div className="error_msg">{error}</div>}
       </div>
     </>
   );

@@ -26,14 +26,11 @@ function App() {
     <Routes>
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
-
       <Route path="/Profile/:id" element={!token ? <Login /> :<Profile />} />
       <Route path="/editProfile/:id" element={!token ? <Login /> : <EditProfile />} />
       <Route path="/postAdd" element={!token ? <Login /> :<PostAdd/>} />
       <Route path="/editPost/:id" element={!token ? <Login /> :<EditPost/>} />
       <Route path="/search" element={<Search/>} />
-
-
       <Route path="/" element={<Home />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>

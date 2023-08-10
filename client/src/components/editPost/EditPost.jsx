@@ -34,8 +34,14 @@ const EditPost = () => {
 
         imageUrl = response.data.secure_url;
       } catch (error) {
-        setError("Failed to upload image.");
-        return;
+        console.log(error);
+        if (
+          error.response &&
+          error.response.status >= 400 &&
+          error.response.status <= 500
+        ) {
+          setError(error.response.data.error);
+        }
       }
     }
 
@@ -55,7 +61,7 @@ const EditPost = () => {
         error.response.status >= 400 &&
         error.response.status <= 500
       ) {
-        setError(error.response.data.message);
+        setError(error.response.data.error);
       }
     }
   };
