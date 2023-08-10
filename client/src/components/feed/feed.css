@@ -142,4 +142,84 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
+
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+
+
+
+
+
+
+
+.postImg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+
+.like-button,
+.comment-button,
+.add-comment-button,
+.editButton {
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+.delete-comment-button{
+  background-color: red;
+}
+
+
+.comments {
+  margin-top: 10px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+
+.comment-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.user-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-author {
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.comment-text {
+  margin-bottom: 2px;
+  color: #555;
+}
+
+
+.error_msg {
+  color: red;
+  margin-top: 10px;
+}

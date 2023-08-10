@@ -15,7 +15,6 @@ const Profile = () => {
   const currentUserId = currentUser?.user?._id;
   const [porfFollowings, setporfFollowings] = useState([]);
   const [profileUser, setProfileUser] = useState("");
-
   const [followClicked, setFollowClicked] = useState(false);
   const [unfollowClicked, setUnfollowClicked] = useState(false);
   const [Followers, setFollowers] = useState([]);
@@ -58,21 +57,21 @@ const Profile = () => {
       { currentUserId: currentUserId }
     );
     location.reload()
+    setFollowers(response.data.updateUser);
     getNotFollowingUsers();
     getFollowings();
 
     const updatedFollowings = [...porfFollowings.Followings, response.data];
     setporfFollowings(updatedFollowings);
-
     setFollowClicked(true);
   };
+
   const handleUnfollow = async (userId) => {
     const response = await axios.put(
       `http://localhost:2000/api/user/unfollow/${userId}`,
       { currentUserId }
     );
-    console.log(response, "handleun Follow rsp");
-    location.reload()
+    setFollowers(response.data.updateUser);
     getNotFollowingUsers();
     getFollowings();
 
@@ -84,6 +83,7 @@ const Profile = () => {
 
     setUnfollowClicked(true);
   };
+
 
   const getUser = async () => {
     try {

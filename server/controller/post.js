@@ -129,11 +129,14 @@ const likePost = async (req, res) => {
       { likes: post.likes },
       { new: true }
     );
-    const populatedPost = await Post.findById(updatedPost._id)
-      .populate("author", "userName profilePic")
-      .exec();
+    const updatePosts = await Post.find()
+    .populate("author", "userName profilePic")
 
-    res.status(200).json({ message: "like update ", populatedPost });
+    .sort({ createdAt: -1 })
+    .exec();
+
+
+    res.status(200).json({ message: "like update ", updatePosts });
   } catch (err) {
     console.log("likepost error =>", err);
     res.status(500).json({ message: err.message });
@@ -161,7 +164,9 @@ const commentPost = async (req, res) => {
       })
       .exec();
 
-    res.status(201).json(populatedPost);
+
+
+    res.status(201).json({populatedPost});
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -185,10 +190,15 @@ const deletComment = async (req, res) => {
     }
     post.comments.splice(commentIndex, 1);
     await post.save();
-    const updatedPost = await Post.findById(postId);
+    const UpdatePosts = await Post.find()
+    .populate("author", "userName profilePic")
+
+    .sort({ createdAt: -1 })
+    .exec();
+
     res
       .status(200)
-      .json({ message: "Comment deleted successfully", updatedPost });
+      .json({ message: "Comment deleted successfully", UpdatePosts });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

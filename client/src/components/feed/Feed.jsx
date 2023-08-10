@@ -77,11 +77,12 @@ export default function Feed() {
         userId,
       }
     );
-    dispatch(setPosts({ posts: response.data.populatedPost }));
+    setPost(response.data.updatePosts)
+    dispatch(setPosts({ posts: response.data.updatePosts}));
   };
 
   const handleLike = (postId) => {
-    location.reload(); /// while updation problem
+    // location.reload(); /// while updation problem
     patchLike(postId);
   };
 
@@ -123,7 +124,8 @@ export default function Feed() {
             `http://localhost:2000/api/user/deleteComment/${postId}/${commentId}`
           )
           .then((response) => {
-            dispatch(setPosts({ posts: response.data.updatedPost }));
+            setPost(response.data.UpdatePosts);
+            dispatch(setPosts({ posts: response.data.UpdatePosts}));
 
             Swal.fire("Deleted!", "Your file has been deleted.", "success");
           })
@@ -141,7 +143,7 @@ export default function Feed() {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {posts?.map((post) => (
+      {posts && posts?.map((post) => (
           <div key={post?._id} className="post">
             <div className="postWrapper">
               <div className="postTop">
